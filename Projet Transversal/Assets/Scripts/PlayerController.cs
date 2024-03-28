@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     Vector2 direction;
     public float moveSpeed;
-    public float jumpForce;
 
     public KeyCode left;
     public KeyCode right;
     public KeyCode up;
     public KeyCode down;
-    public KeyCode one;
     public KeyCode throwGarbage;
 
     private Rigidbody2D theRB;
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     public float garbageCheckRadius;
     public SpriteRenderer spriteRenderer;
     public GameObject player;
-    private Animator anim;
 
     //Creer une Liste de Garbage que a le joueur sur lui
 
@@ -42,15 +40,31 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         theRB = GetComponent<Rigidbody2D>();
-
-        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-        theRB.velocity = direction * moveSpeed;
+        if(Input.GetKey(left))
+        {
+            theRB.velocity = new Vector2(-moveSpeed, theRB.velocity.y);
+        } else if(Input.GetKey(right))
+        {
+            theRB.velocity = new Vector2(moveSpeed, theRB.velocity.y);
+        } else {
+            theRB.velocity = new Vector2(0, theRB.velocity.y);
+        }
+
+        if(Input.GetKey(down))
+        {
+            theRB.velocity = new Vector2(theRB.velocity.x, -moveSpeed);
+        } else if(Input.GetKey(up))
+        {
+            theRB.velocity = new Vector2(theRB.velocity.x, moveSpeed);
+        } else {
+            theRB.velocity = new Vector2(theRB.velocity.x, 0);
+        }
 
         HandleSpriteFlip();
 
@@ -61,8 +75,7 @@ public class PlayerController : MonoBehaviour
             //anim.SetTrigger("Throw");
             shootSound.Play();
         }
-
-        //anim.SetFloat("Speed", Mathf.Abs(theRB.velocity.x));
+        
         //CinemachineShake.Instance.ShakeCamera(2f, 0.2f);
     }
 
