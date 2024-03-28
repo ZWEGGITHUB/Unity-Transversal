@@ -70,21 +70,21 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(throwGarbage))
         {
-            //GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, throwPoint.rotation);
-            //garbageClone.transform.localScale = transform.localScale;       
+            GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, throwPoint.rotation);
+            garbageClone.transform.localScale = transform.localScale;       
             //anim.SetTrigger("Throw");
-            shootSound.Play();
+            //shootSound.Play();
         }
-        
+
         //CinemachineShake.Instance.ShakeCamera(2f, 0.2f);
     }
 
     void HandleSpriteFlip()
     {
-        if (!spriteRenderer.flipX && direction.x < 0) {
-            spriteRenderer.flipX = true;
-        } else if (spriteRenderer.flipX && direction.x > 0) {
-            spriteRenderer.flipX = false;
+        if (direction.x < 0) {
+            gameObject.transform.rotation = Quaternion.Euler(0,180,0);
+        } else if (direction.x > 0) {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0 ,0);
         }
     }
 }
