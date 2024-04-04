@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,10 +15,12 @@ public class PlayerController : MonoBehaviour
     public KeyCode up;
     public KeyCode down;
     public KeyCode throwGarbage;
+    public KeyCode recupTrash;
+    public int nbrTrash1;
 
     private Rigidbody2D theRB;
     public Transform garbageCheckPoint;
-    public LayerMask whatIsGarbage;
+    public LayerMask whatIsTrash;
     public float garbageCheckRadius;
     public SpriteRenderer spriteRenderer;
     public GameObject player;
@@ -32,7 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private Collider2D coll;
 
-    public bool isShotgun;
+    public bool isInRange;
+    public bool isRecup;
     
     //public GameObject stunEffect;
     //public GameManager gameManager;
@@ -45,6 +50,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+        isInRange = Physics2D.OverlapCircle(transform.position, garbageCheckRadius, whatIsTrash);
 
         if(Input.GetKey(left))
         {
@@ -68,15 +74,23 @@ public class PlayerController : MonoBehaviour
 
         HandleSpriteFlip();
 
-        if(Input.GetKeyDown(throwGarbage))
+        if(Input.GetKeyDown(throwGarbage) && nbrTrash1 != 0 && !isInRange)
         {
             GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, throwPoint.rotation);
-            garbageClone.transform.localScale = transform.localScale;       
+            garbageClone.transform.localScale = transform.localScale;
+            nbrTrash1--;
             //anim.SetTrigger("Throw");
             //shootSound.Play();
         }
-
         //CinemachineShake.Instance.ShakeCamera(2f, 0.2f);
+
+        if (Input.GetKeyDown(recupTrash) && isInRange)
+        {
+            //GameObject.Find("Trash");
+            nbrTrash1++;
+            Debug.Log(nbrTrash1);
+            //Object.Destroy(GameObject.FindGameObjectWithTag("Trash"));
+        }
     }
 
     void HandleSpriteFlip()
