@@ -138,3 +138,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
+  trashPrefab: {fileID: 0}
+  numberOfTrash: 26
+  minX: -8
+  maxX: 7.3
+  minY: -4.42
+  maxY: 2

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GarbageBall : MonoBehaviour
 {
-public float ballSpeed = 15f;
+public float ballSpeed = 14f;
 private Rigidbody2D theRB;
 
     // Start is called before the first frame update

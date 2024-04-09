@@ -16,17 +16,13 @@ public class PlayerController : MonoBehaviour
     public KeyCode down;
     public KeyCode throwGarbage;
     public KeyCode recupTrash;
-    public int nbrTrash1;
+    public int nbrTrash1 = 0;
 
     private Rigidbody2D theRB;
-    public Transform garbageCheckPoint;
     public LayerMask whatIsTrash;
     public float garbageCheckRadius;
     public SpriteRenderer spriteRenderer;
     public GameObject player;
-
-    //Creer une Liste de Garbage que a le joueur sur lui
-
     public GameObject garbage;
     public Transform throwPoint;
 
@@ -34,10 +30,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource hitSound;
     public AudioSource grabSound;
 
-    private Collider2D coll;
-
     public bool isInRange;
-    public bool isRecup;
     
     //public GameObject stunEffect;
     //public GameManager gameManager;
