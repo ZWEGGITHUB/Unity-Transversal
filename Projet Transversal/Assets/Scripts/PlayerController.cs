@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public KeyCode down;
     public KeyCode throwGarbage;
     public KeyCode recupTrash;
-    public int nbrTrash1 = 0;
+    public int nbrTrash = 0;
 
     private Rigidbody2D theRB;
     public LayerMask whatIsTrash;
@@ -67,11 +67,11 @@ public class PlayerController : MonoBehaviour
 
         HandleSpriteFlip();
 
-        if(Input.GetKeyDown(throwGarbage) && nbrTrash1 != 0 && !isInRange)
+        if(Input.GetKeyDown(throwGarbage) && nbrTrash != 0 && !isInRange)
         {
             GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, throwPoint.rotation);
-            garbageClone.transform.localScale = transform.localScale;
-            nbrTrash1--;
+            //garbageClone.transform.localScale = transform.localScale;
+            nbrTrash--;
             //anim.SetTrigger("Throw");
             //shootSound.Play();
         }
@@ -79,9 +79,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(recupTrash) && isInRange)
         {
-            //GameObject.Find("Trash");
-            nbrTrash1++;
-            Debug.Log(nbrTrash1);
+            nbrTrash++;
+            Debug.Log(nbrTrash);
             //Object.Destroy(GameObject.FindGameObjectWithTag("Trash"));
         }
     }

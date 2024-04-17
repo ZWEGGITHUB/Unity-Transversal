@@ -133,14 +133,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce241ff9eda77274b8b12dd442ed7247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  f: 102
+  P1: 102
+  P2: 256
   isInPlayerRange: 0
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
   trashPrefab: {fileID: 0}
-  numberOfTrash: 26
+  initialNumberOfTrash: 26
   minX: -8
   maxX: 7.3
   minY: -4.42
   maxY: 2
+  minDistance: 1.3
+  spawnInterval: 1

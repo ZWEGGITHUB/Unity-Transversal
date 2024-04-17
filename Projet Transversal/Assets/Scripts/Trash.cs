@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Trash : MonoBehaviour
 {
-    public KeyCode f;
+    public KeyCode P1;
+    public KeyCode P2;
     public bool isInPlayerRange;
     public LayerMask whatIsPlayer;
     public GameObject trashPrefab; 
-     public int initialNumberOfTrash = 24; // Initial number of trash objects to spawn
+    public int initialNumberOfTrash = 26; // Initial number of trash objects to spawn
     public float minX = -8f;
     public float maxX = 7.3f;
     public float minY = -4.42f;
     public float maxY = 2f;
-    public float minDistance = 1.0f; // Minimum distance between trash objects
+    public float minDistance = 1.3f; // Minimum distance between trash objects
     public float spawnInterval = 1f; // Interval between each trash spawn after the initial delay
     private bool spawningEnabled = false;
 
@@ -21,15 +22,19 @@ public class Trash : MonoBehaviour
     void Start()
     {
         SpawnInitialTrash();
-        Invoke("EnableSpawning", 10f); // Enable spawning after 10 seconds of gameplay
+        Invoke("EnableSpawning", 20f); // Enable spawning after 10 seconds of gameplay
     }
 
     // Update is called once per frame
     void Update()
     {
-        isInPlayerRange = Physics2D.OverlapCircle(transform.position, 1, whatIsPlayer);
+        isInPlayerRange = Physics2D.OverlapCircle(transform.position, 0.5f, whatIsPlayer);
 
-        if (Input.GetKeyDown(f) && isInPlayerRange)
+        if (Input.GetKeyDown(P1) && isInPlayerRange)
+        {
+            StartCoroutine(waitt());
+        }
+        if (Input.GetKeyDown(P2) && isInPlayerRange)
         {
             StartCoroutine(waitt());
         }
