@@ -135,8 +135,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   P1: 102
   P2: 256
-  isInPlayerRange: 0
-  whatIsPlayer:
+  isInPlayerRange1: 0
+  isInPlayerRange2: 0
+  whatIsPlayer1:
+    serializedVersion: 2
+    m_Bits: 64
+  whatIsPlayer2:
     serializedVersion: 2
     m_Bits: 128
   trashPrefab: {fileID: 0}

@@ -6,8 +6,10 @@ public class Trash : MonoBehaviour
 {
     public KeyCode P1;
     public KeyCode P2;
-    public bool isInPlayerRange;
-    public LayerMask whatIsPlayer;
+    public bool isInPlayerRange1;
+    public bool isInPlayerRange2;
+    public LayerMask whatIsPlayer1;
+    public LayerMask whatIsPlayer2;
     public GameObject trashPrefab; 
     public int initialNumberOfTrash = 26; // Initial number of trash objects to spawn
     public float minX = -8f;
@@ -28,13 +30,14 @@ public class Trash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isInPlayerRange = Physics2D.OverlapCircle(transform.position, 0.5f, whatIsPlayer);
+        isInPlayerRange1 = Physics2D.OverlapCircle(transform.position, 0.5f, whatIsPlayer1);
+        isInPlayerRange2 = Physics2D.OverlapCircle(transform.position, 0.5f, whatIsPlayer2);
 
-        if (Input.GetKeyDown(P1) && isInPlayerRange)
+        if (Input.GetKeyDown(P1) && isInPlayerRange1)
         {
             StartCoroutine(waitt());
         }
-        if (Input.GetKeyDown(P2) && isInPlayerRange)
+        if (Input.GetKeyDown(P2) && isInPlayerRange2)
         {
             StartCoroutine(waitt());
         }
