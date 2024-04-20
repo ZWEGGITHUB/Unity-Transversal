@@ -70,12 +70,12 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(throwGarbage) && nbrTrash != 0 && !isInRange)
         {
             GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, throwPoint.rotation);
-            //garbageClone.transform.localScale = transform.localScale;
+            garbageClone.transform.localScale = transform.localScale;
             nbrTrash--;
+            CinemachineShake.Instance.ShakeCamera(0.75f, 0.2f);
             //anim.SetTrigger("Throw");
             //shootSound.Play();
         }
-        //CinemachineShake.Instance.ShakeCamera(2f, 0.2f);
 
         if (Input.GetKeyDown(recupTrash) && isInRange)
         {

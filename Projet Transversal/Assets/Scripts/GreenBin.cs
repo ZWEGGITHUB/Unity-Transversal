@@ -11,12 +11,11 @@ public class GreenBin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Trash trashPickup = collision.gameObject.GetComponent<Trash>();
-
-        if (trashPickup != null)
+        if (collision.gameObject.tag == "Garbage")
         {
             score++;
             scoreText.text = "Score: " + score;
+            CinemachineShake.Instance.ShakeCamera(1.5f, 0.25f);
             Destroy(collision.gameObject);
         }
     }

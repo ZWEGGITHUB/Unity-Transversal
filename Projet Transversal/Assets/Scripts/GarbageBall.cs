@@ -19,8 +19,8 @@ private Rigidbody2D theRB;
         theRB.velocity = new Vector2(ballSpeed, 0);
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        
-        Destroy(gameObject);
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //if (other = gameObject.FindGameObjectsWithTag(""))
     }
 }
