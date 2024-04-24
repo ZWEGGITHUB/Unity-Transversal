@@ -14,7 +14,7 @@ public class GreenBin : MonoBehaviour
         if (collision.gameObject.tag == "Garbage")
         {
             score++;
-            scoreText.text = "Score: " + score;
+            scoreText.text = "Score : " + score;
             CinemachineShake.Instance.ShakeCamera(1.5f, 0.25f);
             Destroy(collision.gameObject);
         }

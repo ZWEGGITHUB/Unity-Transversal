@@ -20,17 +20,18 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D theRB;
     public LayerMask whatIsTrash;
+    public LayerMask whatIsGarbage;
     public float garbageCheckRadius;
-    public SpriteRenderer spriteRenderer;
-    public GameObject player;
+    public float parryCheckRadius = 0.5f;
     public GameObject garbage;
+    public GameObject bin;
     public Transform throwPoint;
-
-    public AudioSource shootSound;
-    public AudioSource hitSound;
-    public AudioSource grabSound;
-
     public bool isInRange;
+
+    //public AudioSource shootSound;
+    //public AudioSource hitSound;
+    //public AudioSource grabSound;
+    //public AudioSource parrySound;
     
     //public GameObject stunEffect;
     //public GameManager gameManager;
@@ -65,32 +66,51 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = new Vector2(theRB.velocity.x, 0);
         }
 
-        HandleSpriteFlip();
-
         if(Input.GetKeyDown(throwGarbage) && nbrTrash != 0 && !isInRange)
         {
-            GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, throwPoint.rotation);
-            garbageClone.transform.localScale = transform.localScale;
+            Vector2 throwDirection = (throwPoint.position - transform.position).normalized;
+            GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, Quaternion.identity);
             nbrTrash--;
-            CinemachineShake.Instance.ShakeCamera(0.75f, 0.2f);
+            garbageClone.GetComponent<Rigidbody2D>().velocity = throwDirection * 15.5f;
+            CinemachineShake.Instance.ShakeCamera(0.3f, 0.1f);
             //anim.SetTrigger("Throw");
             //shootSound.Play();
         }
+
+        //Collider2D[] garbageToParry = Physics2D.OverlapCircleAll(transform.position, parryCheckRadius, whatIsGarbage);
+        //foreach (Collider2D garbage in garbageToParry)
+        //{
+        //    if (Input.GetKeyDown(throwGarbage) && garbage.gameObject != throwPoint.gameObject)
+        //    {
+        //        garbage.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        //        Vector2 parryDirection = (bin.transform.position - transform.position).normalized;
+        //        CinemachineShake.Instance.ShakeCamera(0.75f, 0.15f);
+        //        garbage.GetComponent<Rigidbody2D>().velocity = parryDirection * 15f;
+        //    }
+        //}
 
         if (Input.GetKeyDown(recupTrash) && isInRange)
         {
             nbrTrash++;
             Debug.Log(nbrTrash);
-            //Object.Destroy(GameObject.FindGameObjectWithTag("Trash"));
+        }
+    }
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Garbage")
+        {
+            CinemachineShake.Instance.ShakeCamera(1.5f, 0.25f);
+            Destroy(coll.gameObject);
+            Debug.Log("Hit!!!");
         }
     }
 
-    void HandleSpriteFlip()
-    {
-        if (direction.x < 0) {
-            gameObject.transform.rotation = Quaternion.Euler(0,180,0);
-        } else if (direction.x > 0) {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0 ,0);
-        }
-    }
+    //void HandleSpriteFlip()
+    //{
+    //    if (direction.x < 0) {
+    //        gameObject.transform.rotation = Quaternion.Euler(0,180,0);
+    //    } else if (direction.x > 0) {
+    //        gameObject.transform.rotation = Quaternion.Euler(0, 0 ,0);
+    //    }
+    //}
 }
