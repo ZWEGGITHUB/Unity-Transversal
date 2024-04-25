@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2370700731753020159}
   - component: {fileID: -5717781321896496924}
   m_Layer: 8
-  m_Name: Garbage
+  m_Name: Garbage 1
   m_TagString: Garbage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 2
+  m_Constraints: 0
 --- !u!114 &-2370700731753020159
 MonoBehaviour:
   m_ObjectHideFlags: 0

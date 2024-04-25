@@ -5,14 +5,14 @@ using UnityEngine;
 public class TrashSpawner : MonoBehaviour
 {
     public GameObject trashPrefab; 
-    public int initialNumberOfTrash = 20; // Initial number of trash objects to spawn
+    public int initialNumberOfTrash = 22; // Initial number of trash objects to spawn
     public float minX = -8f;
     public float maxX = 7.3f;
     public float minY = -4.42f;
     public float maxY = 2f;
     public float minDistance = 1.3f; // Minimum distance between trash objects
-    public float spawnInterval = 1f; // Interval between each trash spawn after the initial delay
-    public float spawnAfter = 15f;
+    public float spawnInterval = 1.5f; // Interval between each trash spawn after the initial delay
+    public float spawnAfter = 17f;
     private bool spawningEnabled = false;
 
     // Start is called before the first frame update
