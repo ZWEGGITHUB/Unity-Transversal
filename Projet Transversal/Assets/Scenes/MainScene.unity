@@ -202,8 +202,8 @@ Transform:
   m_GameObject: {fileID: 57820472}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4307, y: -0.985, z: 0}
-  m_LocalScale: {x: 0.2529107, y: 6.8839912, z: 1}
+  m_LocalPosition: {x: -0.4307, y: -0.979, z: 0}
+  m_LocalScale: {x: 0.2529107, y: 6.878894, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -331,7 +331,7 @@ Transform:
   m_GameObject: {fileID: 84714593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.41, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.415, y: 0.5, z: 0}
   m_LocalScale: {x: 3.7499998, y: 4, z: 3.7499998}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -424,7 +424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 145.9, y: -102}
+  m_AnchoredPosition: {x: 151.59998, y: -121}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &191686875
@@ -622,6 +622,7 @@ GameObject:
   - component: {fileID: 284697472}
   - component: {fileID: 284697471}
   - component: {fileID: 284697473}
+  - component: {fileID: 284697474}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
@@ -729,7 +730,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: -0.3}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!50 &284697472
@@ -771,13 +772,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b158b7d2c37ce4d9c407489903d4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6.69
+  moveSpeed: 6.5
   left: 97
   right: 100
   up: 119
   down: 115
   throwGarbage: 102
   recupTrash: 102
+  parryKey: 102
   nbrTrash: 0
   trashText: {fileID: 191686875}
   whatIsTrash:
@@ -786,13 +788,34 @@ MonoBehaviour:
   whatIsGarbage:
     serializedVersion: 2
     m_Bits: 1024
-  garbageCheckRadius: 0.78
+  garbageCheckRadius: 0.8
   parryCheckRadius: 0.6
   garbage: {fileID: 1843439427198726350, guid: c55ed239411f98b4bb4fa51529b43de1, type: 3}
   bin: {fileID: 1890756457}
   throwPoint: {fileID: 1219767529}
   isInRange: 0
   isStunt: 0
+--- !u!95 &284697474
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284697468}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 37c49b67536f893428eb92f98a902fab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,7 +1219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -144.9, y: -102}
+  m_AnchoredPosition: {x: -144.90002, y: -121}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &721507978
@@ -1392,7 +1415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 134, y: -56}
+  m_AnchoredPosition: {x: 134, y: -61}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &992191874
@@ -1570,7 +1593,7 @@ Transform:
   m_GameObject: {fileID: 1067656092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42, y: -0.17999999, z: 0}
+  m_LocalPosition: {x: -0.41, y: -0.17999999, z: 0}
   m_LocalScale: {x: 3.7499998, y: 3.7499998, z: 3.7499998}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1959,7 +1982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -158.9, y: -56}
+  m_AnchoredPosition: {x: -158.90002, y: -61}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1610745082
@@ -2198,7 +2221,7 @@ Transform:
   m_GameObject: {fileID: 1890756457}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.14, y: -1.15, z: 0}
+  m_LocalPosition: {x: 8.16, y: -1.15, z: 0}
   m_LocalScale: {x: 0.6489717, y: 2.5798, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2217,6 +2240,7 @@ GameObject:
   - component: {fileID: 2132907538}
   - component: {fileID: 2132907537}
   - component: {fileID: 2132907536}
+  - component: {fileID: 2132907541}
   m_Layer: 7
   m_Name: Player 2
   m_TagString: Player
@@ -2236,13 +2260,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b158b7d2c37ce4d9c407489903d4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6.69
+  moveSpeed: 6.5
   left: 276
   right: 275
   up: 273
   down: 274
   throwGarbage: 256
   recupTrash: 256
+  parryKey: 256
   nbrTrash: 0
   trashText: {fileID: 721507978}
   whatIsTrash:
@@ -2251,7 +2276,7 @@ MonoBehaviour:
   whatIsGarbage:
     serializedVersion: 2
     m_Bits: 256
-  garbageCheckRadius: 0.78
+  garbageCheckRadius: 0.8
   parryCheckRadius: 0.6
   garbage: {fileID: 1843439427198726350, guid: 43ac156236fd1e34c8294ea2ed365d1c, type: 3}
   bin: {fileID: 1472918190}
@@ -2290,7 +2315,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: -0.3}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!50 &2132907538
@@ -2388,6 +2413,27 @@ Transform:
   - {fileID: 664123227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!95 &2132907541
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132907535}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7b94fd1ee6f18749b40f438d8194762, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

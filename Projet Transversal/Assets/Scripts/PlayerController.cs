@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Vector2 direction;
+    //private Vector2 direction;
     public float moveSpeed;
-
+    private Animator animator;
     public KeyCode left;
     public KeyCode right;
     public KeyCode up;
     public KeyCode down;
     public KeyCode throwGarbage;
     public KeyCode recupTrash;
+    public KeyCode parryKey;
     public int nbrTrash = 0;
     public TMP_Text trashText;
     private Rigidbody2D theRB;
@@ -38,13 +39,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         theRB = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+        //direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
         isInRange = Physics2D.OverlapCircle(transform.position, garbageCheckRadius, whatIsTrash);
-
+        animator.SetFloat("Horizontal", Input.GetAxis("Horizontal") );
+        animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+        animator.SetFloat("Speed", Mathf.Abs(theRB.velocity.x));
+        //animator.SetFloat("Speed", direction.sqrMagnitude);
         if (isStunt == false) 
         {
             if(Input.GetKey(left))
@@ -70,40 +75,51 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(throwGarbage) && nbrTrash != 0 && !isInRange)
         {
+            animator.SetTrigger("IsShooting");
             Vector2 throwDirection = (throwPoint.position - transform.position).normalized;
             GameObject garbageClone = (GameObject)Instantiate(garbage, throwPoint.position, Quaternion.identity);
             nbrTrash--;
             trashText.text = "Trash : " + nbrTrash;
             garbageClone.GetComponent<Rigidbody2D>().velocity = throwDirection * 15.5f;
             CinemachineShake.Instance.ShakeCamera(0.3f, 0.1f);
-            //anim.SetTrigger("Throw");
             //shootSound.Play();
         }
 
-        Vector3 poz = transform.position - new Vector3 (0f, 0.15f, 0f);
-        Collider2D[] garbageToParry = Physics2D.OverlapCircleAll(poz, parryCheckRadius, whatIsGarbage);
-        foreach (Collider2D garbage in garbageToParry)
-        {
-            if (Input.GetKeyDown(throwGarbage))
-            {
-                Vector2 parryDirection = (bin.transform.position - transform.position).normalized;
-                CinemachineShake.Instance.ShakeCamera(0.8f, 0.3f);
-                garbage.GetComponent<Rigidbody2D>().velocity = parryDirection * 15.5f;
-            }
-        }
-
-        Collider2D[] isInRangeOfTrash = Physics2D.OverlapCircleAll(transform.position, garbageCheckRadius, whatIsTrash);
+        Vector3 poss = transform.position - new Vector3 (0f, 0.18f, 0f);
+        Collider2D[] isInRangeOfTrash = Physics2D.OverlapCircleAll(poss, garbageCheckRadius, whatIsTrash);
         foreach (Collider2D trash in isInRangeOfTrash)
         {
             if (Input.GetKeyDown(recupTrash))
             {
+                animator.SetTrigger("IsGrabing");
                 nbrTrash++;
                 trashText.text = "Trash : " + nbrTrash;
-                Debug.Log(nbrTrash);
+                Destroy(trash.gameObject);
             }
         }
 
+        if (Input.GetKeyDown(parryKey))
+        {
+            Parry();
+        }
+
         //HandleSpriteFlip();
+    }
+    private void Parry()
+    {
+        Vector3 parryPosition = transform.position - new Vector3(0f, 0.15f, 0f);
+        Collider2D[] objectsToParry = Physics2D.OverlapCircleAll(parryPosition, parryCheckRadius, whatIsGarbage);
+
+        foreach (Collider2D objCollider in objectsToParry)
+        {
+            Rigidbody2D objRigidbody = objCollider.GetComponent<Rigidbody2D>();
+            if (objRigidbody != null)
+            {
+                Vector2 parryDirection = (objCollider.transform.position - transform.position).normalized;
+                objRigidbody.velocity = parryDirection * 15.5f;
+                CinemachineShake.Instance.ShakeCamera(0.8f, 0.3f);
+            }
+        }
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -111,7 +127,6 @@ public class PlayerController : MonoBehaviour
         {
             CinemachineShake.Instance.ShakeCamera(1.5f, 0.25f);
             Destroy(coll.gameObject);
-            Debug.Log("Hit!!!");
             StartCoroutine(StuntDelay());
         }
     }
@@ -126,6 +141,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 pos = transform.position - new Vector3 (0f, 0.15f, 0f);
         Gizmos.DrawWireSphere(pos, parryCheckRadius);
+        Vector3 poss = transform.position - new Vector3 (0f, 0.18f, 0f);
+        Gizmos.DrawWireSphere(poss, garbageCheckRadius);
     }
 
     //void HandleSpriteFlip()
