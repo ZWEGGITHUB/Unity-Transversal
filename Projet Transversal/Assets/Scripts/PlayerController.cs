@@ -23,10 +23,12 @@ public class PlayerController : MonoBehaviour
     public float garbageCheckRadius;
     public float parryCheckRadius = 0.6f;
     public GameObject garbage;
-    public GameObject bin;
+    public Transform bin;
     public Transform throwPoint;
     public bool isInRange;
     public bool isStunt;
+
+    public ParticleSystem hitParticleSystem;
 
     //public AudioSource shootSound;
     //public AudioSource hitSound;
@@ -115,9 +117,10 @@ public class PlayerController : MonoBehaviour
             Rigidbody2D objRigidbody = objCollider.GetComponent<Rigidbody2D>();
             if (objRigidbody != null)
             {
-                Vector2 parryDirection = (objCollider.transform.position - transform.position).normalized;
+                animator.SetTrigger("IsParry");
+                Vector2 parryDirection = (bin.position - transform.position).normalized;
                 objRigidbody.velocity = parryDirection * 15.5f;
-                CinemachineShake.Instance.ShakeCamera(0.8f, 0.3f);
+                CinemachineShake.Instance.ShakeCamera(1f, 0.3f);
             }
         }
     }
@@ -133,6 +136,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator StuntDelay()
     {
         isStunt = true;
+        Instantiate(hitParticleSystem, transform.position, Quaternion.Euler(-90f, 0f, 0f));
         theRB.velocity = Vector2.zero;
         yield return new WaitForSeconds(1.5f);
         isStunt = false;

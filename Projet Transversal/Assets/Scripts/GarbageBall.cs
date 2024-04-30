@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class GarbageBall : MonoBehaviour
 {
-private Rigidbody2D theRB;
+    //private Rigidbody2D ballRB;
+    public Sprite[] sprites;
 
-    // Start is called before the first frame update
     void Start()
     {
-        theRB = GetComponent<Rigidbody2D>();
+        int randomIndex = Random.Range(0, sprites.Length);
+        
+        //ballRB = GetComponent<Rigidbody2D>();
+
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = sprites[randomIndex];
+
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(Vector3.forward, 2f);
     }    
 }
