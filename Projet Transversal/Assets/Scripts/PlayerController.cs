@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(throwGarbage) && nbrTrash != 0 && !isInRange)
+        if(Input.GetKeyDown(throwGarbage) && nbrTrash != 0 && !isInRange && isStunt == false)
         {
             animator.SetTrigger("IsShooting");
             Vector2 throwDirection = (throwPoint.position - transform.position).normalized;
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         Collider2D[] isInRangeOfTrash = Physics2D.OverlapCircleAll(poss, garbageCheckRadius, whatIsTrash);
         foreach (Collider2D trash in isInRangeOfTrash)
         {
-            if (Input.GetKeyDown(recupTrash))
+            if (Input.GetKeyDown(recupTrash) && isStunt == false)
             {
                 animator.SetTrigger("IsGrabing");
                 nbrTrash++;
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
             {
                 animator.SetTrigger("IsParry");
                 Vector2 parryDirection = (bin.position - transform.position).normalized;
-                objRigidbody.velocity = parryDirection * 15.5f;
+                objRigidbody.velocity = parryDirection * 20f;
                 CinemachineShake.Instance.ShakeCamera(1f, 0.3f);
             }
         }
@@ -136,9 +136,10 @@ public class PlayerController : MonoBehaviour
     IEnumerator StuntDelay()
     {
         isStunt = true;
+        animator.SetTrigger("IsStunt");
         Instantiate(hitParticleSystem, transform.position, Quaternion.Euler(-90f, 0f, 0f));
         theRB.velocity = Vector2.zero;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.4f);
         isStunt = false;
     }
     void OnDrawGizmosSelected() 
